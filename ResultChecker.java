@@ -3,6 +3,6 @@ public class ResultChecker{
 
     public void comprobarPlagio(){
         //Comprueba
-       System.out.println(this.result);
+       System.out.println(this.result);;
     }
 }
