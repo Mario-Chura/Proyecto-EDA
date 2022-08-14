@@ -4,16 +4,15 @@ import java.util.Scanner;
 import java.io.*;
 
 public class PlagiarismChecker{  
-    private ArrayList<String> bd;
+    static ArrayList<String> bd= new ArrayList<String>();
+    static ArrayList<ArrayList> list= new ArrayList<ArrayList>();
 
     public static void main(String[] args){
         PlagiarismChecker nom = new PlagiarismChecker();
         nom.loadFiles();
-        
+         System.out.println(bd.toString());
     }
-
     public boolean loadFiles(){
-        bd= new ArrayList<String>();
 
         String line;
         try {
@@ -22,12 +21,11 @@ public class PlagiarismChecker{
                 line= lector.next();
                 line= line.replace(",","");
                 bd.add(line);
-               
                 System.out.println(line);
         
             }
             lector.close();
-            System.out.println(bd.toString());
+           
         }
         catch (FileNotFoundException e){
             System.out.print("Error");
