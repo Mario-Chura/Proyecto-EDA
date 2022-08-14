@@ -15,15 +15,15 @@ import java.util.List;
 */
 public class PlagiarismChecker {
 	
-	static List<Document> results = new ArrayList<Document>();
+	static List<Texto> results = new ArrayList<Texto>();
 	
 	static List<String> listDocuments = new ArrayList<String>();
 	static AVLTree<String> tree =null; 
 	
-	static int heightAVL;// altura del árbol avl generado
+	static int heightAVL;// altura del ï¿½rbol avl generado
 	final static int max_number_word=5;
 	
-	public List<Document> getResults() {
+	public List<Texto> getResults() {
 		return results;
 	}
 
@@ -35,7 +35,7 @@ public class PlagiarismChecker {
 		this.heightAVL = heightAVL;
 	}
 
-	public void setResults(List<Document> results) {
+	public void setResults(List<Texto> results) {
 		this.results = results;
 	}
 
@@ -62,18 +62,18 @@ public class PlagiarismChecker {
 		}
 		smallfile.close();
 
-		//la primera línea contiene el nombre del documento principal que queremos comparar con el resto de otros documentos
-		Document d1 = new Document(listDocuments.get(0));
-		tree = d1.createAVL();//cargar el primer documento y agregarlo al árbol avl
-		this.heightAVL=tree.height(tree.getRoot());// cuenta la altura del árbol generado
+		//la primera lï¿½nea contiene el nombre del documento principal que queremos comparar con el resto de otros documentos
+		Texto d1 = new Texto(listDocuments.get(0));
+		tree = d1.crearAVL();//cargar el primer documento y agregarlo al ï¿½rbol avl
+		this.heightAVL=tree.height(tree.getRoot());// cuenta la altura del ï¿½rbol generado
 		
 		
 	}
 	
 	/*
-* este método permite guardar el resultado que obtuvimos después de verificar las frases coincidentes en el archivo de texto.
-* La primera línea del archivo contiene la altura del árbol AVL que generamos.
-* Cada una de las líneas restantes contienen el número de frases comunes de un solo documento.
+* este mï¿½todo permite guardar el resultado que obtuvimos despuï¿½s de verificar las frases coincidentes en el archivo de texto.
+* La primera lï¿½nea del archivo contiene la altura del ï¿½rbol AVL que generamos.
+* Cada una de las lï¿½neas restantes contienen el nï¿½mero de frases comunes de un solo documento.
 	 */
 	
 	public static ResultChecker verifyPlagiarism() throws IOException{
@@ -87,10 +87,10 @@ public class PlagiarismChecker {
 		for (int i = 1; i < listDocuments.size(); i++) {
 			progress=(i*100)/listDocuments.size();//progreso del procesamiento por porcentaje
 			
-			Document d = new Document(listDocuments.get(i));
+			Texto d = new Texto(listDocuments.get(i));
 		
 			d.matching_count(tree); //compara
-			results.add(d);//añadir el resultado del documento actual a la lista de matrices
+			results.add(d);//aï¿½adir el resultado del documento actual a la lista de matrices
 			
 			System.out.print(progress+"% ");
 	
@@ -109,11 +109,11 @@ public class PlagiarismChecker {
 		String[] result6 = new String[results.size()];
 		System.out.println(" Height AVL:" + heightAVL+"\n");
 		for (int i = 0; i < results.size(); i++) {
-			if(results.get(i).getFrequency() != 0) {
-				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+			if(results.get(i).getFrecuencia() != 0) {
+				result6[i]=results.get(i).getNombre()+" nï¿½ de frases coincidentes :"+results.get(i).getFrecuencia()+"\n";
 				resultados2[i]=true;
 			}else {
-				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+				result6[i]=results.get(i).getNombre()+" nï¿½ de frases coincidentes :"+results.get(i).getFrecuencia()+"\n";
 				resultados2[i]=false;
 			}
 			
@@ -141,7 +141,7 @@ public class PlagiarismChecker {
 			e.printStackTrace();
 		}
 
-		 System.out.println("100% \n#Procesamiento: ¡Listo!");
+		 System.out.println("100% \n#Procesamiento: ï¿½Listo!");
 
 		 System.out.println("#el resultado se guarda en el archivo 'Data/Output/result.txt'");
 
