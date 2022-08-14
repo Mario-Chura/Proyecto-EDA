@@ -6,30 +6,37 @@ public class PlagiarismChecker{
     private ArrayList<String> bd;
 
     public static void main(String[] args){
-        System.out.print("Prueba");
+        PlagiarismChecker nom = new PlagiarismChecker();
+        nom.loadFiles();
+        
     }
-
-    public boolean loadFiles(String[] paths){
+    public boolean loadFiles(){
         bd= new ArrayList<String>();
 
         String line;
         try {
-            Scanner lector= new Scanner(new FileReader("Mensaje.txt"));
+            Scanner lector= new Scanner(new FileReader("Base/Mensaje.txt"));
             while(lector.hasNextLine()) {
-                line= lector.nextLine();
+                line= lector.next();
+                line= line.replace(",","");
+                bd.add(line);
+               
                 System.out.println(line);
+        
             }
             lector.close();
+            System.out.println(bd.toString());
         }
         catch (FileNotFoundException e){
             System.out.print("Error");
             return false;
         }
+		return false;
     }
 
     public ResultChecker verifyPlagiarism(String path){
         ResultChecker obj= null;
         
-        return obj.result;
+        return obj;
     }
 }
