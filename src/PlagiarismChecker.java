@@ -1,7 +1,6 @@
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
 
 public class PlagiarismChecker{  
     static ArrayList<String> bd= new ArrayList<String>();
@@ -16,7 +15,7 @@ public class PlagiarismChecker{
 
         String line;
         try {
-            Scanner lector= new Scanner(new FileReader("Base/Mensaje.txt"));
+            Scanner lector= new Scanner(new FileReader("D:\\Semestre_3\\Estructura_de_Datos_Algoritmos\\Proyecto\\Proyecto-EDA\\Bdatos\\texto1.txt"));
             while(lector.hasNextLine()) {
                 line= lector.next();
                 line= line.replace(",","");
