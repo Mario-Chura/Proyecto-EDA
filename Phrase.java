@@ -1,4 +1,4 @@
-package com.asmaa.DataStructure;
+
 /**
  *Esta clase es la estructura de la frase tipo, 
  *cada frase contiene una cantidad de palabras, cada frase 
