@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,9 +5,10 @@ import java.util.Scanner;
 
 /**
 * Esta clase tiene 3 variables y contiene una lista
-  * de métodos para ayudarnos a leer y verificar cada
+  * de mï¿½todos para ayudarnos a leer y verificar cada
   * documento que tenemos en la carpeta de datos
  */
+
 public class Document implements Comparable<Document> {
 	private String fileName;
 	private Phrase phrase;
@@ -21,7 +20,6 @@ public class Document implements Comparable<Document> {
 	}
 
 	public Document(String fileName) {
-
 		this.fileName = fileName;
 		this.frequency = 0;
 
@@ -59,11 +57,19 @@ public class Document implements Comparable<Document> {
 	}
 
 	/*
-* este método nos ayuda a dividir un archivo en frases y
-* agregar insertarlos en el árbol AVL
+* este mï¿½todo nos ayuda a dividir un archivo en frases y
+* agregar insertarlos en el ï¿½rbol AVL
 	 */
-	public AVLTree<String> createAVL() throws IOException {
-		Scanner input = new Scanner(new File("Data/" + this.getFileName()));
+	public AVLTree<String> createAVL(){
+		Scanner input;
+		try{
+			input = new Scanner(new File("Data/" + this.getFileName()));
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Error en Document/maching_count");
+			return null;
+		}
+
 		Phrase p = new Phrase();
 		AVLTree<String> tree = new AVLTree<String>();
 		while (input.hasNext()) {
@@ -75,42 +81,65 @@ public class Document implements Comparable<Document> {
 
 			}
 		}
-
 		input.close();
 		return tree;
-
 	}
 
 	/*
 	 *this method  read an avl tree and count the frequency of phrases in  the current document
 	 */
-	public void matching_count(AVLTree<String> tree) throws FileNotFoundException
-
-	{
-		Scanner input = new Scanner(new File("Data/" + this.getFileName()));
-
-		Phrase p = new Phrase();
+	public boolean matching_count(AVLTree<String> tree){
+		Scanner input;
+		try{
+			input = new Scanner(new File("Data/" + this.getFileName()));
+		}
+		catch(FileNotFoundException e){
+			System.out.println("Error en Document/maching_count");
+			return false;
+		}
 		
+		Phrase p = new Phrase();
+		while (input.hasNext()) {
+			String word = input.next().toLowerCase();
+			p.addword(word);
+			// compruebe si el ï¿½rbol avl contiene la frase de 5 palabras
+			if (p.getNumbersWord() == max_number_word) {
+				if (tree.find(tree, p.getData().toString().trim()) != null) {
+					input.close();
+					return true;
+
+				}
+			}
+		}
+		input.close();
+		return false;
+	}
+
+/*  public void matching_count(AVLTree<String> tree) throws FileNotFoundException{
+		Scanner input = new Scanner(new File("Data/" + this.getFileName()));
+		Phrase p = new Phrase();		
 		int frequency =0;
 		while (input.hasNext()) {
 
 			String word = input.next().toLowerCase();
 			p.addword(word);
-			// compruebe si el árbol avl contiene la frase de 5 palabras
+			// compruebe si el ï¿½rbol avl contiene la frase de 5 palabras
 			if (p.getNumbersWord() == max_number_word) {
 
 				if (tree.find(tree, p.getData().toString().trim()) != null) {
 
-					frequency++;//incrementar la frecuencia si encontramos una frase coincidente en el árbol AVL
+					frequency++;//incrementar la frecuencia si encontramos una frase coincidente en el ï¿½rbol AVL
 					this.setFrequency(frequency);
 
 				}
 			}
 		}
-
 		input.close();
 	}
-//comparar documentos por el número de frecuencia
+*/
+
+
+//comparar documentos por el nï¿½mero de frecuencia
 	@Override
 	public int compareTo(Document d1) {
 		if (d1.getFrequency() > this.getFrequency()) {

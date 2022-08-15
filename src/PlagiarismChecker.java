@@ -1,17 +1,9 @@
-
-
-import java.io.BufferedReader;
-
-import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
+import java.io.FileNotFoundException;
 import javax.swing.SwingUtilities;
 
 /**
@@ -23,27 +15,24 @@ public class PlagiarismChecker {
 	static List<Document> results = new ArrayList<Document>();
 	
 	static List<String> listDocuments = new ArrayList<String>();
-	static AVLTree<String> tree =null; 
+	static AVLTree<String> tree =null;
+	static ArrayList<AVLTree<String>> trees= new ArrayList<AVLTree<String>>(); //Lista de arboles
 	
-	static int heightAVL;// altura del árbol avl generado
+	
 	final static int max_number_word=5;
 	static String respuesta="";
 	
 	public List<Document> getResults() {
 		return results;
 	}
-
+/*
 	public int getHeightAVL() {
 		return heightAVL;
 	}
 
 	public void setHeightAVL(int heightAVL) {
 		this.heightAVL = heightAVL;
-	}
-
-	public void setResults(List<Document> results) {
-		this.results = results;
-	}
+	}*/
 
 	public PlagiarismChecker() {
 
@@ -52,6 +41,20 @@ public class PlagiarismChecker {
 * cargar la lista de los documentos que necesitamos procesar desde el archivo small.txt
 * luego verifique la similitud de cada documento individual con el primer documento dadot
  */
+	public boolean LoadFiles(String[] paths){
+		//leer
+		//estructurar
+		Document d;
+		for(String path: paths){
+			d= new Document(path);
+			trees.add(d.createAVL());
+			if(trees.get(trees.size()-1)== null){
+				return true;
+			}
+		}
+		return false;
+	}
+/*
 	public void ReadFiles() throws IOException {
 		//leer
 		//estructurar
@@ -68,20 +71,36 @@ public class PlagiarismChecker {
 		}
 		smallfile.close();
 
-		//la primera línea contiene el nombre del documento principal que queremos comparar con el resto de otros documentos
+		//la primera lï¿½nea contiene el nombre del documento principal que queremos comparar con el resto de otros documentos
 		Document d1 = new Document(listDocuments.get(0));
-		tree = d1.createAVL();//cargar el primer documento y agregarlo al árbol avl
-		this.heightAVL=tree.height(tree.getRoot());// cuenta la altura del árbol generado
-		
-		
+		tree = d1.createAVL();//cargar el primer documento y agregarlo al ï¿½rbol avl
+		//this.heightAVL=tree.height(tree.getRoot());// cuenta la altura del ï¿½rbol generado
 	}
-	
+	*/
 	/*
-* este método permite guardar el resultado que obtuvimos después de verificar las frases coincidentes en el archivo de texto.
-* La primera línea del archivo contiene la altura del árbol AVL que generamos.
-* Cada una de las líneas restantes contienen el número de frases comunes de un solo documento.
+* este mï¿½todo permite guardar el resultado que obtuvimos despuï¿½s de verificar las frases coincidentes en el archivo de texto.
+* La primera lï¿½nea del archivo contiene la altura del ï¿½rbol AVL que generamos.
+* Cada una de las lï¿½neas restantes contienen el nï¿½mero de frases comunes de un solo documento.
 	 */
-	
+
+	public static ResultChecker verifyPlagiarism(String path){
+		//ingresar original
+		//proceso de verificar
+		
+		ResultChecker result= new ResultChecker(trees.size());
+		int progress=0;
+		
+		for (int i = 0; i < trees.size(); i++) {
+			progress=(i*100)/trees.size();//progreso del procesamiento por porcentaje
+			Document d = new Document(listDocuments.get(i));		
+			result.setResult(d.matching_count(trees.get(i)));
+			System.out.print(progress+"% ");
+			respuesta= respuesta+progress+"% " ;		
+		}		
+		resultado(result);		
+		return result;		
+	}
+/* 
 	public static ResultChecker verifyPlagiarism() throws IOException{
 		//ingresar original
 		//proceso de verificar
@@ -96,7 +115,7 @@ public class PlagiarismChecker {
 			Document d = new Document(listDocuments.get(i));
 		
 			d.matching_count(tree); //compara
-			results.add(d);//añadir el resultado del documento actual a la lista de matrices
+			results.add(d);//aï¿½adir el resultado del documento actual a la lista de matrices
 			
 			System.out.print(progress+"% ");
 			respuesta= respuesta+progress+"% " ;
@@ -108,21 +127,22 @@ public class PlagiarismChecker {
 		
 		return resultado3;
 		
-	}
+	}*/
 	
 	public static void resultado(ResultChecker resultado5){
 		
 		boolean[] resultados2 = new boolean[results.size()];
 		String[] result6 = new String[results.size()];
+		/*
 		System.out.println(" Height AVL:" + heightAVL+"\n");
-		respuesta= respuesta+" Height AVL:" + heightAVL+"\n" ;
+		respuesta= respuesta+" Height AVL:" + heightAVL+"\n" ;*/
 		for (int i = 0; i < results.size(); i++) {
 			if(results.get(i).getFrequency() != 0) {
-				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+				result6[i]=results.get(i).getFileName()+" nï¿½ de frases coincidentes :"+results.get(i).getFrequency()+"\n";
 				respuesta= respuesta+result6[i];
 				resultados2[i]=true;
 			}else {
-				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+				result6[i]=results.get(i).getFileName()+" nï¿½ de frases coincidentes :"+results.get(i).getFrequency()+"\n";
 				respuesta= respuesta+ result6[i] ;
 				resultados2[i]=false;
 			}
@@ -136,26 +156,22 @@ public class PlagiarismChecker {
 	
 	 public static void main(String[] args) throws IOException, InterruptedException {
 		 
-
 		 long startTime = System.currentTimeMillis();
 
 		 System.out.println("#Procesando");
 		 respuesta= respuesta+"#Procesando"+"\n" ;
 
 		 PlagiarismChecker d = new PlagiarismChecker();
-		 d.ReadFiles();
+		 String[] paths={""};
+		 d.LoadFiles(paths);
 		 
-		 try {
-			ResultChecker rre1 = verifyPlagiarism();
-			rre1.imprimir();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		String simple= ""; //archivo a examinar 
+	
+		ResultChecker rre1 = verifyPlagiarism(simple);
+		rre1.imprimir();		
 
-		 System.out.println("100% \n#Procesamiento: ¡Listo!");
-		 respuesta= respuesta+"100% \n#Procesamiento: ¡Listo!"+"\n" ;
+		 System.out.println("100% \n#Procesamiento: ï¿½Listo!");
+		 respuesta= respuesta+"100% \n#Procesamiento: ï¿½Listo!"+"\n" ;
 
 		 System.out.println("#el resultado se guarda en el archivo 'Data/Output/result.txt'");
 		 respuesta= respuesta+"#el resultado se guarda en el archivo 'Data/Output/result.txt'"+"\n";
