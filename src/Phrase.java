@@ -36,8 +36,8 @@ public class Phrase  {
 * palabra y agregue la nueva palabra al final de la oraci�n
 	 */
 	public void addword(String word) {
-		word = word.replaceAll("[!?,.:;)(]", "").trim();// remove punctuation
-		if (data == null) {
+		word = word.replaceAll("[!?,.:;)(]", "").trim();//remueve signos de 
+		if (data == null) {													//puntuación
 			StringBuilder sb = new StringBuilder();
 			sb.append(word);
 			this.setData(sb);

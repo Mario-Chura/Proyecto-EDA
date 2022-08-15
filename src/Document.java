@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -9,10 +8,9 @@ import java.util.Scanner;
   * documento que tenemos en la carpeta de datos
  */
 
-public class Document implements Comparable<Document> {
+public class Document{
 	private String fileName;
 	private Phrase phrase;
-	private int frequency;
 	final static int max_number_word=10;
 	//constructors
 	public Document() {
@@ -21,13 +19,10 @@ public class Document implements Comparable<Document> {
 
 	public Document(String fileName) {
 		this.fileName = fileName;
-		this.frequency = 0;
 	}
 
 	public Document(String fileName, int frequency) {
-
 		this.fileName = fileName;
-		this.frequency = frequency;
 	}
 	
 //getters and setters
@@ -45,14 +40,6 @@ public class Document implements Comparable<Document> {
 
 	public void setPhrase(Phrase phrase) {
 		this.phrase = phrase;
-	}
-
-	public int getFrequency() {
-		return frequency;
-	}
-
-	public void setFrequency(int frequency) {
-		this.frequency = frequency;
 	}
 
 	/*
@@ -79,7 +66,6 @@ public class Document implements Comparable<Document> {
 			//insertar cada cinco palabras en el nuevo nodo
 			if (p.getNumbersWord() == max_number_word) {
 				tree.setRoot(tree.insert(tree.getRoot(), new String(p.getData())));
-
 			}
 		}
 		input.close();
@@ -104,52 +90,15 @@ public class Document implements Comparable<Document> {
 		while (input.hasNext()) {
 			String word = input.next().toLowerCase();
 			p.addword(word);
-			// compruebe si el �rbol avl contiene la frase de 5 palabras
+			// compruebe si el �rbol avl contiene la frase de 10 palabras
 			if (p.getNumbersWord() == max_number_word) {
 				if (tree.find(tree, p.getData().toString().trim()) != null) {
 					input.close();
 					return true;
-
 				}
 			}
 		}
 		input.close();
 		return false;
 	}
-
-/*  public void matching_count(AVLTree<String> tree) throws FileNotFoundException{
-		Scanner input = new Scanner(new File("Data/" + this.getFileName()));
-		Phrase p = new Phrase();		
-		int frequency =0;
-		while (input.hasNext()) {
-
-			String word = input.next().toLowerCase();
-			p.addword(word);
-			// compruebe si el �rbol avl contiene la frase de 5 palabras
-			if (p.getNumbersWord() == max_number_word) {
-
-				if (tree.find(tree, p.getData().toString().trim()) != null) {
-
-					frequency++;//incrementar la frecuencia si encontramos una frase coincidente en el �rbol AVL
-					this.setFrequency(frequency);
-
-				}
-			}
-		}
-		input.close();
-	}
-*/
-
-
-//comparar documentos por el n�mero de frecuencia
-	@Override
-	public int compareTo(Document d1) {
-		if (d1.getFrequency() > this.getFrequency()) {
-			return 1;
-		} else if (d1.getFrequency() < this.getFrequency()) {
-			return -1;
-		}
-		return 0;
-	}
-
 }

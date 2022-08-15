@@ -1,4 +1,3 @@
-
 public class ResultChecker {
 	
 	private boolean [] result;
@@ -19,16 +18,17 @@ public class ResultChecker {
 		return this.result[i];
 	}
 
-	public void setResult(boolean[] result_) {
-		this.result = result_;
+	public void setResult(boolean[] result) {
+		this.result = result;
 	}
 
-	public void setResult(boolean b) {
+	public void setResult(boolean b, String t) {
+		titulos[i]= t;
 		result[i]= b;
 		i++;
 	}
 	
-	public String [] getPalabras() {
+	public String [] getTitulos() {
 		return this.titulos;
 	}
 
@@ -41,14 +41,13 @@ public class ResultChecker {
 		this.titulos = palabras_;
 	}
 	
-	public void imprimir(){
-       for (int i = 0; i < result.length; i++) {
-    	   if(result[i]) {
-    		   System.out.println(titulos[i]+ "Entonces S� hay plagio");
-    		   
-    	   }else {
-    		   System.out.println(titulos[i]+ "Entonces NO hay plagio");
-    	   }
-		}       
+	public String imprimir(){
+		System.out.println("Entrando a Result Checker");
+		StringBuilder rpta= new StringBuilder();
+		for (int i = 0; i < getResults().length; i++) {			
+			rpta.append(titulos[i] + " Plagio :"+result[i] +"\n");
+		}
+		System.out.println(rpta);
+		return rpta.toString();
     }
 }

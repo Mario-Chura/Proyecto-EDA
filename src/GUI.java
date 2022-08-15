@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -29,18 +31,22 @@ public class GUI extends JFrame {
     public JScrollPane pane;
     private JProgressBar pbar; 
     public final JButton selectButtonArchivo;
+    private static ArrayList<String> bd;
+    private static String file;
 
-    public GUI(String nombre) {
+    public GUI() {
         this.processLabel = new JLabel("Process : ");
         this.dirLabel = new JLabel("Enter path of directory : ");
-        this.selectButton = new JButton("Select");
+        this.selectButton = new JButton("Subir archivos a la BD");
         this.dirPath = new JTextField();
-        this.processArea = new JTextArea(nombre);
-        this.checkButton = new JButton("Check");
+        this.processArea = new JTextArea();
+        this.checkButton = new JButton("Revisar");
         this.subPanel = new JPanel();
         this.contentPanel = new JPanel();
         this.pbar = new JProgressBar(0,100);
-        this.selectButtonArchivo = new JButton("Archivo");
+        this.selectButtonArchivo = new JButton("Seleccionar archivo");
+        bd= new ArrayList<String>();
+        file ="";
     }
 
     public void Display() {
@@ -55,9 +61,9 @@ public class GUI extends JFrame {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setContentPane(contentPanel);
 
-        //dirLabel.setPreferredSize(new Dimension(100, 20));
+        dirLabel.setPreferredSize(new Dimension(100, 20));
         processLabel.setPreferredSize(new Dimension(150, 20));
-        //dirPath.setPreferredSize(new Dimension(150, 5));
+        dirPath.setPreferredSize(new Dimension(150, 5));
         processArea.setPreferredSize(new Dimension(0, 1000));
         processArea.setEditable(false);
         pane = new JScrollPane (processArea);
@@ -68,15 +74,15 @@ public class GUI extends JFrame {
         
         subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        //subPanel.add(dirLabel);
+        subPanel.add(dirLabel);
         contentPanel.add(subPanel);
 
         subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        //subPanel.add(dirPath);
-        //subPanel.add(Box.createRigidArea(new Dimension(5,0)));
-       // subPanel.add(selectButton);
-        //subPanel.add(selectButtonArchivo);
+        subPanel.add(dirPath);
+        subPanel.add(Box.createRigidArea(new Dimension(5,0)));
+        subPanel.add(selectButton);
+        subPanel.add(selectButtonArchivo);
         contentPanel.add(subPanel);
 
         subPanel = new JPanel();
@@ -94,24 +100,24 @@ public class GUI extends JFrame {
         subPanel.add(pbar);
         subPanel.add(Box.createRigidArea(new Dimension(5,0)));
         subPanel.add(checkButton);
-        contentPanel.add(subPanel);
+        contentPanel.add(subPanel);      
 
-        EventSb esb = new EventSb();
-        selectButton.addActionListener(esb);
-
-        EventCB ecb = new EventCB();
-        checkButton.addActionListener(ecb);
+        SubidaBd sbd = new SubidaBd();
+        selectButton.addActionListener(sbd);
         
-        selectButtonArchivo.addActionListener(esb);
+        SubidaArchivo sa = new SubidaArchivo();
+        selectButtonArchivo.addActionListener(sa);
 
+        Ejecutar ej= new Ejecutar();
+        checkButton.addActionListener(ej);
              
         setVisible(true);
     }
 
-    static String getDirectory() {
+    private static String getDirectory() {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("~"));
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             return chooser.getSelectedFile().getAbsolutePath();
@@ -119,37 +125,68 @@ public class GUI extends JFrame {
         return null;
     }
 
-    class EventCB implements ActionListener {
+    static
+
+    class SubidaBd implements ActionListener { //Sube a la base de datos
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String path = dirPath.getText();
-            if (path.isEmpty()) {
+            String path = getDirectory();
+            if (path.isEmpty() && bd.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
-            } else {
-                //(new checkPlagiarism(path)).execute();
-            }
-        }
-    }
-    class EventBA implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String path = dirPath.getText();
-            if (path.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
-            } else {
-                //(new checkPlagiarism(path)).execute();
+            } else if(bd.contains(path)){
+                JOptionPane.showMessageDialog(null, "Ya se ingreso ese texto");
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Subido " + path);
+                bd.add(path);
             }
         }
     }
 
-    class EventSb implements ActionListener {
+    class SubidaArchivo implements ActionListener { //Sube el archivo a comparar
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String s1 = GUI.getDirectory();
-            dirPath.setText(s1);
+            String path = getDirectory();
+            if (path.isEmpty() && bd.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
+            }else {
+                JOptionPane.showMessageDialog(null, "Subido " + path);
+                file= path;
+            }
+        }
+    }
+    
+    class Ejecutar implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {          
+
+            String respuesta= "";
+            long startTime = System.currentTimeMillis();
+            System.out.println("#Procesando");
+            respuesta= respuesta+"#Procesando"+"\n" ;
+    
+            PlagiarismChecker d = new PlagiarismChecker();            	
+            
+            PlagiarismChecker p= new PlagiarismChecker();
+            String[] paths= new String[bd.size()];
+            for(int i= 0; i< bd.size(); i++){
+                paths[i]= bd.get(i);
+            }
+            System.out.println(d.LoadFiles(paths) + " en Load");
+            ResultChecker rpta= p.verifyPlagiarism(file);
+            respuesta+= rpta.imprimir();
+
+            System.out.println("100% \n#Procesamiento: �Listo!");
+            respuesta= respuesta+"100% \n#Procesamiento: �Listo!"+"\n" ;
+    
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            System.out.println("Tiempo de procesamiento en milisegundos: "+elapsedTime);
+            respuesta= respuesta+"Tiempo de procesamiento en milisegundos: "+elapsedTime+"\n";
+            System.out.println(respuesta);
+            processArea.setText(respuesta);
         }
     }
 }
