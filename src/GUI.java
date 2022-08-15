@@ -19,7 +19,7 @@ import javax.swing.ScrollPaneConstants;
 public class GUI extends JFrame {
 
     public final JTextField dirPath;
-    public static JTextArea processArea;
+    private JTextArea processArea;
     public final JButton checkButton;
     public final JButton selectButton;
     public final JPanel contentPanel;
@@ -27,7 +27,7 @@ public class GUI extends JFrame {
     public final JLabel dirLabel;
     public final JLabel processLabel;
     public JScrollPane pane;
-    public static JProgressBar pbar; 
+    private JProgressBar pbar; 
     public final JButton selectButtonArchivo;
 
     public GUI(String nombre) {
@@ -102,7 +102,6 @@ public class GUI extends JFrame {
         EventCB ecb = new EventCB();
         checkButton.addActionListener(ecb);
         
-        EventBA eba = new EventBA();
         selectButtonArchivo.addActionListener(esb);
 
              

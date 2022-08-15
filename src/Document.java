@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -13,7 +12,7 @@ public class Document implements Comparable<Document> {
 	private String fileName;
 	private Phrase phrase;
 	private int frequency;
-	final static int max_number_word=5;
+	final static int max_number_word=10;
 	//constructors
 	public Document() {
 
@@ -22,7 +21,6 @@ public class Document implements Comparable<Document> {
 	public Document(String fileName) {
 		this.fileName = fileName;
 		this.frequency = 0;
-
 	}
 
 	public Document(String fileName, int frequency) {
@@ -63,7 +61,7 @@ public class Document implements Comparable<Document> {
 	public AVLTree<String> createAVL(){
 		Scanner input;
 		try{
-			input = new Scanner(new File("Data/" + this.getFileName()));
+			input = new Scanner(new File(this.getFileName()));
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Error en Document/maching_count");
@@ -74,6 +72,7 @@ public class Document implements Comparable<Document> {
 		AVLTree<String> tree = new AVLTree<String>();
 		while (input.hasNext()) {
 			String word = input.next().toLowerCase();
+			System.out.print(word + " ");
 			p.addword(word);
 			//insertar cada cinco palabras en el nuevo nodo
 			if (p.getNumbersWord() == max_number_word) {
@@ -82,6 +81,7 @@ public class Document implements Comparable<Document> {
 			}
 		}
 		input.close();
+		System.out.println("  +++ Terminado +++");
 		return tree;
 	}
 
@@ -91,7 +91,7 @@ public class Document implements Comparable<Document> {
 	public boolean matching_count(AVLTree<String> tree){
 		Scanner input;
 		try{
-			input = new Scanner(new File("Data/" + this.getFileName()));
+			input = new Scanner(new File(this.getFileName()));
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Error en Document/maching_count");

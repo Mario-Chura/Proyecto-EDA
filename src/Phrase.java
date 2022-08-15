@@ -2,12 +2,12 @@
 /**
  *Esta clase es la estructura de la frase tipo, 
  *cada frase contiene una cantidad de palabras, cada frase 
- *tiene una cantidad máxima de palabras
+ *tiene una cantidad mï¿½xima de palabras
  */
 public class Phrase  {
 	private StringBuilder data;
 	private int numbersWord;
-	final static int max_number_word=5;
+	final static int max_number_word=10;
 //Constructor
 	public Phrase() {
 		
@@ -31,9 +31,9 @@ public class Phrase  {
 	}
 	
 	/*
-* este método nos ayuda a agregar palabras a una frase dada y cada
+* este mï¿½todo nos ayuda a agregar palabras a una frase dada y cada
 * vez que la frase llegue a 5 palabras quitaremos la primera
-* palabra y agregue la nueva palabra al final de la oración
+* palabra y agregue la nueva palabra al final de la oraciï¿½n
 	 */
 	public void addword(String word) {
 		word = word.replaceAll("[!?,.:;)(]", "").trim();// remove punctuation
@@ -43,7 +43,6 @@ public class Phrase  {
 			this.setData(sb);
 			this.numbersWord += 1;
 		} else {
-
 			StringBuilder temp = this.getData();
 			if (this.numbersWord < max_number_word) {
 				if (temp.length() > 0) {
@@ -56,7 +55,6 @@ public class Phrase  {
 				this.numbersWord += 1;
 
 			} else {
-
 				temp.delete(0, temp.indexOf(" ") + 1);
 				temp.append(" ").append(word);
 				this.setData(temp);
