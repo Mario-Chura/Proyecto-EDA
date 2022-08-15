@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 
 /**
@@ -61,7 +62,7 @@ public class Document implements Comparable<Document> {
 	public AVLTree<String> createAVL(){
 		Scanner input;
 		try{
-			input = new Scanner(new File(this.getFileName()));
+			input = new Scanner(new FileReader(this.getFileName()));
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Error en Document/maching_count");
@@ -92,7 +93,7 @@ public class Document implements Comparable<Document> {
 	public boolean matching_count(AVLTree<String> tree){
 		Scanner input;
 		try{
-			input = new Scanner(new File(this.getFileName()));
+			input = new Scanner(new FileReader(this.getFileName()));
 		}
 		catch(FileNotFoundException e){
 			System.out.println("Error en Document/maching_count");
