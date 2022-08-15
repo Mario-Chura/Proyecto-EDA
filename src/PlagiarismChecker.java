@@ -1,13 +1,18 @@
 
 
 import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 /**
 *esta clase ayuda a leer archivos y verificar la frecuencia de las frases en cada documento individual
@@ -22,6 +27,7 @@ public class PlagiarismChecker {
 	
 	static int heightAVL;// altura del árbol avl generado
 	final static int max_number_word=5;
+	static String respuesta="";
 	
 	public List<Document> getResults() {
 		return results;
@@ -55,7 +61,7 @@ public class PlagiarismChecker {
 		int progress=0;
 		
 		//este documento contiene los nombres de los documentos que queremos procesar
-		BufferedReader smallfile = new BufferedReader(new FileReader("Data/small.txt"));
+		BufferedReader smallfile = new BufferedReader(new FileReader("Data/indice.txt"));
 
 		while ((l = smallfile.readLine()) != null) {
 			listDocuments.add(l);
@@ -93,6 +99,7 @@ public class PlagiarismChecker {
 			results.add(d);//añadir el resultado del documento actual a la lista de matrices
 			
 			System.out.print(progress+"% ");
+			respuesta= respuesta+progress+"% " ;
 	
 			
 		}
@@ -108,12 +115,15 @@ public class PlagiarismChecker {
 		boolean[] resultados2 = new boolean[results.size()];
 		String[] result6 = new String[results.size()];
 		System.out.println(" Height AVL:" + heightAVL+"\n");
+		respuesta= respuesta+" Height AVL:" + heightAVL+"\n" ;
 		for (int i = 0; i < results.size(); i++) {
 			if(results.get(i).getFrequency() != 0) {
 				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+				respuesta= respuesta+result6[i];
 				resultados2[i]=true;
 			}else {
 				result6[i]=results.get(i).getFileName()+" n° de frases coincidentes :"+results.get(i).getFrequency()+"\n";
+				respuesta= respuesta+ result6[i] ;
 				resultados2[i]=false;
 			}
 			
@@ -125,10 +135,12 @@ public class PlagiarismChecker {
 
 	
 	 public static void main(String[] args) throws IOException, InterruptedException {
+		 
 
 		 long startTime = System.currentTimeMillis();
 
 		 System.out.println("#Procesando");
+		 respuesta= respuesta+"#Procesando"+"\n" ;
 
 		 PlagiarismChecker d = new PlagiarismChecker();
 		 d.ReadFiles();
@@ -140,14 +152,28 @@ public class PlagiarismChecker {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		 System.out.println("100% \n#Procesamiento: ¡Listo!");
+		 respuesta= respuesta+"100% \n#Procesamiento: ¡Listo!"+"\n" ;
 
 		 System.out.println("#el resultado se guarda en el archivo 'Data/Output/result.txt'");
+		 respuesta= respuesta+"#el resultado se guarda en el archivo 'Data/Output/result.txt'"+"\n";
 
 		 long stopTime = System.currentTimeMillis();
 		 long elapsedTime = stopTime - startTime;
 		 System.out.println("Tiempo de procesamiento en milisegundos: "+elapsedTime);
+		 respuesta= respuesta+"Tiempo de procesamiento en milisegundos: "+elapsedTime+"\n";
+		 System.out.println(respuesta);
+		 PrintStream out = new PrintStream(new FileOutputStream("Output.txt"));
+	        System.setOut(out);
+	        SwingUtilities.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                GUI gui = new GUI(respuesta);
+	                gui.Display();
+	            }
+	        });
 
 	 }
 

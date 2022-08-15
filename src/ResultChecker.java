@@ -25,6 +25,7 @@ public class ResultChecker {
        for (int i = 0; i < result.length; i++) {
     	   if(result[i]) {
     		   System.out.println(palabras[i]+ "Entonces SÍ hay plagio");
+    		   
     	   }else {
     		   System.out.println(palabras[i]+ "Entonces NO hay plagio");
     	   }
