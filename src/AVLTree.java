@@ -1,9 +1,5 @@
-
-
 /**
- 
-esta clase es la implementaciÛn del ·rbol avl con el mÈtodo de inserciÛn
- que permiten agregar un nuevo nodo al ·rbol
+ * esta clase es la implementaci√≥n del √°rbol avl con el m√©todo de inserci√≥n que permite agregar un nuevo nodo al √°rbol
  */
 public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 
@@ -17,7 +13,7 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 		this.root = root;
 	}
 
-	// este mÈtodo devuelve la altura del nodo actual
+	// Este m√©todo devuelve la altura del nodo actual
 	public int height(Node<TYPE> node) {
 		if (node == null)
 			return 0;
@@ -25,13 +21,13 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 		return node.getHeight();
 	}
 
-	// este mÈtodo devuelve el valor m·ximo de dos n˙meros (dos alturas)
+	// Este m√©todo devuelve el valor m√°ximo de dos n√∫meros (dos alturas)
 	public int max(int n1, int n2) {
 		return Math.max(n1, n2);
 		// return (n1 > n2) ? n1 : n2;
 	}
 
-	// este mÈtodo gira a la derecha el nodo desequilibrado
+	// Este m√©todo gira a la derecha el nodo desequilibrado
 	public Node<TYPE> rightRotate(Node<TYPE> current) {
 		Node<TYPE> temp = current.getLeft();
 		Node<TYPE> T2 = temp.getRight();
@@ -39,14 +35,14 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 		temp.setRight(current);
 		current.setLeft(T2);
 
-		// update the height after rotation
+		// Actualizar la altura despu√©s de la rotaci√≥n
 		current.setHeight(max(height(current.getLeft()), height(current.getRight())) + 1);
 		temp.setHeight(max(height(temp.getLeft()), height(temp.getRight())) + 1);
 
 		return temp;
 	}
 
-	// este mÈtodo gira hacia la izquierda el nodo desequilibrado
+	// Este m√©todo gira a la izquierda el movimiento de cabeza desequilibrado
 	public Node<TYPE> leftRotate(Node<TYPE> current) {
 		Node<TYPE> temp = current.getRight();
 		Node<TYPE> T2 = temp.getLeft();
@@ -54,7 +50,7 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 		temp.setLeft(current);
 		current.setRight(T2);
 
-		// actualiza la altura despuÈs de la rotaciÛn
+		// Actualizar la altura despu√©s de la rotaci√≥n
 		current.setHeight(max(height(current.getLeft()), height(current.getRight())) + 1);
 		temp.setHeight(max(height(temp.getLeft()), height(temp.getRight())) + 1);
 
@@ -63,7 +59,7 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 
 	public Node<TYPE> insert(Node<TYPE> current, TYPE value) {
 
-		// inserta el nuevo valor
+		// Inserta el nuevo valor
 		if (current == null)
 			return (new Node<TYPE>(value));
 
@@ -71,21 +67,21 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 			current.setLeft(insert(current.getLeft(), value));
 		else if (value.compareTo(current.getValue()) > 0)
 			current.setRight(insert(current.getRight(), value));
-		else // salir si el nodo ya existe
+		else // Salir si el nodo ya existe
 			return current;
 
-		// actualizar altura
+		// Actualizar altura
 		current.setHeight(1 + max(height(current.getLeft()), height(current.getRight())));
 
-		// verifique el saldo despuÈs de agregar el nuevo nodo para verificar si el ·rbol se convirtiÛ
-		// desequilibrada (menor que -1 o mayor que 1)
+		// Verifica el saldo despu√©s de agregar el nuevo nodo para verificar si el √°rbol se convirti√≥ desequilibrada (menor que -1 o mayor que 1)
+
 		int balance = getBalance(current);
 
-		// si el saldo es mayor que 1, entonces procesa la rotaciÛn a la derecha
+		// si el saldo es mayor que 1, entonces procesa la rotaci√≥n a la derecha
 		if (balance > 1 && value.compareTo(current.getLeft().getValue()) < 0)
 			return rightRotate(current);
 
-		// si el saldo es menor que -1, entonces procesa la rotaciÛn a la izquierda
+		// si el saldo es menor que -1, entonces procesa la rotaci√≥n a la izquierda
 		if (balance < -1 && value.compareTo(current.getRight().getValue()) > 0)
 			return leftRotate(current);
 
@@ -104,7 +100,7 @@ public class AVLTree<TYPE extends Comparable<? super TYPE>> {
 		return current;
 	}
 
-	// este mÈtodo devuelve el saldo del nodo actual
+	// este m√©todo devuelve el saldo del nodo actual
 	public int getBalance(Node<TYPE> node) {
 		if (node == null)
 			return 0;
