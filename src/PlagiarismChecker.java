@@ -21,7 +21,7 @@ public class PlagiarismChecker {
 	static AVLTree<String> tree =null; 
 	
 	static int heightAVL;// altura del �rbol avl generado
-	final static int max_number_word=5;
+	final static int max_number_word=10;
 	
 	public List<Texto> getResults() {
 		return results;
