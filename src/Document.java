@@ -70,6 +70,7 @@ public class Document implements Comparable<Document> {
 
 		Phrase p = new Phrase();
 		AVLTree<String> tree = new AVLTree<String>();
+		System.out.println("Creando AVL de " + fileName);
 		while (input.hasNext()) {
 			String word = input.next().toLowerCase();
 			System.out.print(word + " ");

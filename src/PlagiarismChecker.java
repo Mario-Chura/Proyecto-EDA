@@ -147,7 +147,7 @@ public class PlagiarismChecker {
 		respuesta= respuesta+"#Procesando"+"\n" ;
 
 		PlagiarismChecker d = new PlagiarismChecker();
-		String[] paths={"Data/abf076.txt","Data/abf386.txt","Data/abf70402.txt","Data/edo26.txt"};
+		String[] paths={"Data/bmu5.txt","Data/abf076.txt","Data/abf386.txt","Data/abf70402.txt","Data/bef1121.txt","Data/bef1121.txt"};
 		System.out.println(d.LoadFiles(paths) + " en Load");
 		 
 		String simple= "Data/simple.txt"; //archivo a examinar 
