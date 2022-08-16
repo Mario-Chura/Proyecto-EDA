@@ -61,10 +61,14 @@
 ### I.	SOLUCIÓN DE EJERCICIOS/PROBLEMAS
 #	
 1.  Este proyecto tiene por objetivo que los alumnos implementen un sistema de detección de plagio simple (sistema a ser implementado), en el cual, usando como referencia una base de datos, el usuario del sistema enviará un párrafo escrito por el mismo (o copiado de alguna fuente) y lo enviará al sistema, el cual se encarga de realizar las consultas sobre la base de datos a fin de determinar si existió plagio o no.
-	- ***Clase 1***
-	- ***Clase 2***
-	- ***Clase 3***
-	- ***Clase 4***
+	- ***Class Node:*** Estructura del nodo del árbol AVL (Cada nodo contendrá un grupo de 10 palabras)	
+	- ***Class AVLTree:***Implementación del arbol AVL (Se implementan métodos de inserción, balance, rotación a la derecha, rotación a la izquierda)
+	- ***Class Phrase:*** Esta clase almacena un grupo de 10 palabras en su atributo “Data”, luego estos grupos de 10 palabras mediante el método “addword” se usaran para ser insertados en el árbol AVL de la base de datos, también se usa el método “addword”para separar en grupos de 10 palabras el texto a ser comparado.
+	- ***Class Document:*** En esta clase posee como atributos nombre “fileName” y el grupo de 10 palabras “phase”; además posee el métodos “createAVL()” el cual nos permite crear los árboles de la base de datos; también tenemos el método “matching” el cual realiza la búsqueda del un frase de 10 palabra en los diferentes árboles de la base de datos.
+	- ***Class PlagiarismChecker:*** Esta clase implementa el método “LoadFiles(String[] paths)” el cual nos permite cargar los documentos para la base y el documento a revisar, también tenemos el método “verifyPlagiarism(String path)” en el cual se hacen las verificaciones para corroborar si hay plagio
+	- ***Class ResultChecker:*** Esta clase tiene como atributos un arreglo de booleanos con los resultados de las verificaciones.
+	- ***Class GUI:*** Esta clase contiene la interfaz para cargar archivos y realizar la ejecución de las verificaciones.
+	- ***Class Main:*** Esta clase inicia la ejecución de la interfaz.
 	
    
 #
