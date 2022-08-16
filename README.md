@@ -80,6 +80,22 @@
 	- ***Class GUI:*** Esta clase contiene la interfaz para cargar archivos y realizar la ejecución de las verificaciones.
 	- ***Class Main:*** Esta clase inicia la ejecución de la interfaz.
 	
+- Funcionamiento:	
+	- Primero se ingresa la base de datos los cuales están compuestos por los archivos .sgm
+	
+	![imagen](Imagenes/Img1.jpg)
+	
+	- La base de datos mediante la clase “createAVL()” se introduce en un árbol, este árbol tendrá como nodos un grupo de 10 palabras, este grupo de palabras se forman mediante el método “addword(String word)”
+	
+	![imagen](Imagenes/Img2.jpg)
+
+	- Se introduce el texto que deseamos verificar si es plagio, para ello este texto mediante el método “addword(String word)” dentro de un bucle irá formando grupos de 10 palabras como se muestra en la imagen:
+	
+	![imagen](Imagenes/Img3.jpg)
+	
+	- Se realizará la búsqueda de cada grupo de 10 palabras del texto a buscar en cada árbol que conforman la base de datos esta verificación usa el método “matching”, si encuentra la coincidencia de un grupo de 10 palabras se le considera plagio.
+	
+	![imagen](Imagenes/Img4.jpg)
    
 #
 
