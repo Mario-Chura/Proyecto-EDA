@@ -5,31 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingUtilities;
 /**
-*esta clase ayuda a leer archivos y verificar la frecuencia de las frases en cada documento individual
-*y guardar el resultado de cada documento en archivo de texto
-*/
+ *Esta clase  ayuda a cargar y leer los archivos a verificar(BD). 
+ *También carga el archivo a comparar y examina con los demás.
+ */
 public class PlagiarismChecker {
-	
-	static List<Document> results = new ArrayList<Document>();	
+	//Atributos	
 	static List<String> listDocuments = new ArrayList<String>();
 	static List<AVLTree<String>> trees= new ArrayList<AVLTree<String>>(); //Lista de arboles
 	static String respuesta="";
-	
-	public List<Document> getResults() {
-		return results;
-	}
 
+
+	//Construtor
 	public PlagiarismChecker() {
 
 	}
-/*
-* cargar la lista de los documentos que necesitamos procesar desde el archivo small.txt
-* luego verifique la similitud de cada documento individual con el primer documento dadot
- */
-	public boolean LoadFiles(String[] paths){
-		//leer
-		//estructurar
-		System.out.println("Entrando a LoadFiles");
+	/**
+	 * Método que indica que no hubo errores con la 
+	 * lectura de rutas de los archivos de la BD.
+	 */
+	public boolean loadFiles(String[] paths){
+
 		Document d;
 		for(String path: paths){
 			if(listDocuments.contains(path)){
@@ -46,26 +41,20 @@ public class PlagiarismChecker {
 		return false;
 	}
 
-	/*
-* este mï¿½todo permite guardar el resultado que obtuvimos despuï¿½s de verificar las frases coincidentes en el archivo de texto.
-* La primera lï¿½nea del archivo contiene la altura del ï¿½rbol AVL que generamos.
-* Cada una de las lï¿½neas restantes contienen el nï¿½mero de frases comunes de un solo documento.
+	/**
+	 * Método que otorga los resultados del sistema de 
+	 * detección de plagio con respecto al archivo con/sin plagio
 	 */
-
 	public ResultChecker verifyPlagiarism(String path){
-		//ingresar original
-		//proceso de verificar
-		System.out.println("Entrando en verifyPlagiarism");
+
 		ResultChecker result= new ResultChecker(trees.size());
 		int progress=0;
 		Document d = new Document(path);
-		
+
 		for (int i = 0; i < trees.size(); i++) {
-			progress=((i+1)*100)/trees.size();//progreso del procesamiento por porcentaje
-			System.out.print("--> Comparando " + listDocuments.get(i) + "  -  ");
+			progress=((i+1)*100)/trees.size();//Progreso del procesamiento por porcentaje
 			result.setResult(d.match(trees.get(i)),listDocuments.get(i));
-			System.out.println(progress+"% ");
-			respuesta= respuesta+progress+"% " ;		
+			respuesta= respuesta+progress+"%" ;		
 		}	
 		return result;		
 	}

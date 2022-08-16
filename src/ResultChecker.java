@@ -1,15 +1,17 @@
 public class ResultChecker {
-	
+	//Atributos
 	private boolean [] result;
 	private String [] titulos;
 	private int i;
-	
+
+	//Constructor
 	public ResultChecker(int n){
 		titulos= new String[n];
 		result= new boolean[n];
 		i= 0;
 	}
 
+	//Setter y Getters
 	public boolean [] getResults() {
 		return this.result;
 	}
@@ -27,7 +29,7 @@ public class ResultChecker {
 		result[i]= b;
 		i++;
 	}
-	
+
 	public String [] getTitulos() {
 		return this.titulos;
 	}
@@ -40,14 +42,14 @@ public class ResultChecker {
 	public void setPalabras(String[] palabras_) {
 		this.titulos = palabras_;
 	}
-	
+
 	public String imprimir(){
-		System.out.println("Entrando a Result Checker");
+		//Entrando a Result Checker
 		StringBuilder rpta= new StringBuilder();
 		for (int i = 0; i < getResults().length; i++) {			
 			rpta.append(titulos[i] + " Plagio :"+result[i] +"\n");
 		}
 		System.out.println(rpta);
 		return rpta.toString();
-    }
+	}
 }

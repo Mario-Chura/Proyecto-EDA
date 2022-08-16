@@ -3,16 +3,18 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 /**
-* Esta clase tiene 3 variables y contiene una lista
-  * de m�todos para ayudarnos a leer y verificar cada
-  * documento que tenemos en la carpeta de datos
+ * Esta clase tiene 3 atributos y contiene una lista
+ * de metodos para ayudarnos a leer y verificar cada
+ * documento que se carguen.
  */
 
 public class Document{
+	//Atributos
 	private String fileName;
 	private Phrase phrase;
 	final static int max_number_word=10;
-	//constructors
+
+	//Constructores
 	public Document() {
 
 	}
@@ -24,8 +26,8 @@ public class Document{
 	public Document(String fileName, int frequency) {
 		this.fileName = fileName;
 	}
-	
-//getters and setters
+
+	//Getters y setters
 	public String getFileName() {
 		return fileName;
 	}
@@ -42,9 +44,9 @@ public class Document{
 		this.phrase = phrase;
 	}
 
-	/*
-* este m�todo nos ayuda a dividir un archivo en frases y
-* agregar insertarlos en el �rbol AVL
+	/**
+	 * Este metodo nos ayuda a dividir un archivo en frases e
+	 * insertarlos en el arbol AVL
 	 */
 	public AVLTree<String> createAVL(){
 		Scanner input;
@@ -63,7 +65,7 @@ public class Document{
 			String word = input.next().toLowerCase();
 			System.out.print(word + " ");
 			p.addword(word);
-			//insertar cada cinco palabras en el nuevo nodo
+			//Inserta cada 10 palabras en el nuevo nodo
 			if (p.getNumbersWord() == max_number_word) {
 				tree.setRoot(tree.insert(tree.getRoot(), new String(p.getData())));
 			}
@@ -73,9 +75,8 @@ public class Document{
 		return tree;
 	}
 
-	/*
-	 *this method  read an avl tree and count the frequency of phrases in  the current document
-	 */
+
+	// Este metodo lee un arbol AVL y verifica si hay coincidencias
 	public boolean match(AVLTree<String> tree){
 		Scanner input;
 		try{
@@ -85,12 +86,12 @@ public class Document{
 			System.out.println("Error en Document/maching_count");
 			return false;
 		}
-		
+
 		Phrase p = new Phrase();
 		while (input.hasNext()) {
 			String word = input.next().toLowerCase();
 			p.addword(word);
-			// compruebe si el �rbol avl contiene la frase de 10 palabras
+			// Compruebe si el arbol avl contiene la frase de 10 palabras
 			if (p.getNumbersWord() == max_number_word) {
 				if (tree.find(tree, p.getData().toString().trim()) != null) {
 					input.close();

@@ -19,164 +19,164 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 public class GUI extends JFrame {   
-    private JTextArea processArea;
-    public final JButton checkButton;
-    public final JButton selectButton;
-    public final JPanel contentPanel;
-    public JPanel subPanel;
-    public final JLabel dirLabel;
-    public final JLabel processLabel;
-    public JScrollPane pane;    
-    public final JButton selectButtonArchivo;
-    private static ArrayList<String> bd;
-    private static String file;
+	private JTextArea processArea;
+	public final JButton checkButton;
+	public final JButton selectButton;
+	public final JPanel contentPanel;
+	public JPanel subPanel;
+	public final JLabel dirLabel;
+	public final JLabel processLabel;
+	public JScrollPane pane;    
+	public final JButton selectButtonArchivo;
+	private static ArrayList<String> bd;
+	private static String file;
 
-    public GUI() {
-        this.processLabel = new JLabel("Estado:");
-        this.dirLabel = new JLabel("Detector de Plagios ");
-        this.selectButton = new JButton("Subir archivos a la BD");
-        this.processArea = new JTextArea();
-        this.checkButton = new JButton("Revisar");
-        this.subPanel = new JPanel();
-        this.contentPanel = new JPanel();
-        this.selectButtonArchivo = new JButton("Seleccionar archivo");
-        bd= new ArrayList<String>();
-        file ="";
-    }
+	public GUI() {
+		this.processLabel = new JLabel("Estado:");
+		this.dirLabel = new JLabel("Detector de Plagios ");
+		this.selectButton = new JButton("Subir archivos a la BD");
+		this.processArea = new JTextArea();
+		this.checkButton = new JButton("Revisar");
+		this.subPanel = new JPanel();
+		this.contentPanel = new JPanel();
+		this.selectButtonArchivo = new JButton("Seleccionar archivo");
+		bd= new ArrayList<String>();
+		file ="";
+	}
 
-    public void Display() {
-        setBounds(50, 50, 600, 200);
-        setMinimumSize(new Dimension(500, 300));
-        setMaximumSize(new Dimension(999, 200));
+	public void Display() {
+		setBounds(50, 50, 600, 200);
+		setMinimumSize(new Dimension(500, 300));
+		setMaximumSize(new Dimension(999, 200));
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("JAM Plagiarism Checker");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("JAM Plagiarism Checker");
 
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setContentPane(contentPanel);
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
+		contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		setContentPane(contentPanel);
 
-        dirLabel.setPreferredSize(new Dimension(100, 20));
-        processLabel.setPreferredSize(new Dimension(150, 20));
-        processArea.setPreferredSize(new Dimension(0, 1000));
-        processArea.setEditable(false);
-        pane = new JScrollPane (processArea);
-        pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
-        subPanel = new JPanel();
-        subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(dirLabel);
-        contentPanel.add(subPanel);
+		dirLabel.setPreferredSize(new Dimension(100, 20));
+		processLabel.setPreferredSize(new Dimension(150, 20));
+		processArea.setPreferredSize(new Dimension(0, 1000));
+		processArea.setEditable(false);
+		pane = new JScrollPane (processArea);
+		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        subPanel = new JPanel();
-        subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(Box.createRigidArea(new Dimension(5,0)));
-        subPanel.add(selectButton);
-        subPanel.add(selectButtonArchivo);
-        contentPanel.add(subPanel);
+		subPanel = new JPanel();
+		subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
+		subPanel.add(dirLabel);
+		contentPanel.add(subPanel);
 
-        subPanel = new JPanel();
-        subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(processLabel);
-        contentPanel.add(subPanel);
+		subPanel = new JPanel();
+		subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
+		subPanel.add(Box.createRigidArea(new Dimension(5,0)));
+		subPanel.add(selectButton);
+		subPanel.add(selectButtonArchivo);
+		contentPanel.add(subPanel);
 
-        subPanel = new JPanel();
-        subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(pane);
-        contentPanel.add(subPanel);
-        
-        subPanel = new JPanel();
-        subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(Box.createRigidArea(new Dimension(5,0)));
-        subPanel.add(checkButton);
-        contentPanel.add(subPanel);      
+		subPanel = new JPanel();
+		subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
+		subPanel.add(processLabel);
+		contentPanel.add(subPanel);
 
-        SubidaBd sbd = new SubidaBd();
-        selectButton.addActionListener(sbd);
-        
-        SubidaArchivo sa = new SubidaArchivo();
-        selectButtonArchivo.addActionListener(sa);
+		subPanel = new JPanel();
+		subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
+		subPanel.add(pane);
+		contentPanel.add(subPanel);
 
-        Ejecutar ej= new Ejecutar();
-        checkButton.addActionListener(ej);
-             
-        setVisible(true);
-    }
+		subPanel = new JPanel();
+		subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
+		subPanel.add(Box.createRigidArea(new Dimension(5,0)));
+		subPanel.add(checkButton);
+		contentPanel.add(subPanel);      
 
-    private static String getDirectory() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new java.io.File("~"));
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setAcceptAllFileFilterUsed(false);
-        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile().getAbsolutePath();
-        }
-        return null;
-    }
+		SubidaBd sbd = new SubidaBd();
+		selectButton.addActionListener(sbd);
 
-    static
+		SubidaArchivo sa = new SubidaArchivo();
+		selectButtonArchivo.addActionListener(sa);
 
-    class SubidaBd implements ActionListener { //Sube a la base de datos
+		Ejecutar ej= new Ejecutar();
+		checkButton.addActionListener(ej);
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String path = getDirectory();
-            if (path.isEmpty() && bd.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
-            } else if(bd.contains(path)){
-                JOptionPane.showMessageDialog(null, "Ya se ingreso ese texto");
-            } 
-            else {
-                JOptionPane.showMessageDialog(null, "Subido " + path);
-                bd.add(path);
-            }
-        }
-    }
+		setVisible(true);
+	}
 
-    class SubidaArchivo implements ActionListener { //Sube el archivo a comparar
+	private static String getDirectory() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new java.io.File("~"));
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			return chooser.getSelectedFile().getAbsolutePath();
+		}
+		return null;
+	}
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String path = getDirectory();
-            if (path.isEmpty() && bd.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
-            }else {
-                JOptionPane.showMessageDialog(null, "Subido " + path);
-                file= path;
-            }
-        }
-    }
-    
-    class Ejecutar implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {          
+	static
 
-            String respuesta= "";
-            long startTime = System.currentTimeMillis();
-            System.out.println("#Procesando");
-            respuesta= respuesta+"#Procesando"+"\n" ;
-    
-            PlagiarismChecker d = new PlagiarismChecker();            	
-            
-            PlagiarismChecker p= new PlagiarismChecker();
-            String[] paths= new String[bd.size()];
-            for(int i= 0; i< bd.size(); i++){
-                paths[i]= bd.get(i);
-            }
-            System.out.println(d.LoadFiles(paths) + " en Load");
-            ResultChecker rpta= p.verifyPlagiarism(file);
-            respuesta+= rpta.imprimir();
+	class SubidaBd implements ActionListener { //Sube a la base de datos
 
-            System.out.println("100% \n#Procesamiento: �Listo!");
-            respuesta= respuesta+"100% \n#Procesamiento: �Listo!"+"\n" ;
-    
-            long stopTime = System.currentTimeMillis();
-            long elapsedTime = stopTime - startTime;
-            System.out.println("Tiempo de procesamiento en milisegundos: "+elapsedTime);
-            respuesta= respuesta+"Tiempo de procesamiento en milisegundos: "+elapsedTime+"\n";
-            System.out.println(respuesta);
-            processArea.setText(respuesta);
-        }
-    }
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String path = getDirectory();
+			if (path.isEmpty() && bd.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
+			} else if(bd.contains(path)){
+				JOptionPane.showMessageDialog(null, "Ya se ingreso ese texto");
+			} 
+			else {
+				JOptionPane.showMessageDialog(null, "Subido " + path);
+				bd.add(path);
+			}
+		}
+	}
+
+	class SubidaArchivo implements ActionListener { //Sube el archivo a comparar
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String path = getDirectory();
+			if (path.isEmpty() && bd.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
+			}else {
+				JOptionPane.showMessageDialog(null, "Subido " + path);
+				file= path;
+			}
+		}
+	}
+
+	class Ejecutar implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {          
+
+			String respuesta= "";
+			long startTime = System.currentTimeMillis();
+			System.out.println("#Procesando");
+			respuesta= respuesta+"#Procesando"+"\n" ;
+
+			PlagiarismChecker d = new PlagiarismChecker();            	
+
+			PlagiarismChecker p= new PlagiarismChecker();
+			String[] paths= new String[bd.size()];
+			for(int i= 0; i< bd.size(); i++){
+				paths[i]= bd.get(i);
+			}
+			System.out.println(d.loadFiles(paths) + " en Load");
+			ResultChecker rpta= p.verifyPlagiarism(file);
+			respuesta+= rpta.imprimir();
+
+			System.out.println("100% \n#Procesamiento: Listo!");
+			respuesta= respuesta+"\n#Procesamiento: Listo!"+"\n" ;
+
+			long stopTime = System.currentTimeMillis();
+			long elapsedTime = stopTime - startTime;
+			System.out.println("Tiempo de procesamiento en milisegundos: "+elapsedTime);
+			respuesta= respuesta+"Tiempo de procesamiento en milisegundos: "+elapsedTime+"\n";
+			System.out.println(respuesta);
+			processArea.setText(respuesta);
+		}
+	}
 }

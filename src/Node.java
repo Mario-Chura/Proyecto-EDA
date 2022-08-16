@@ -1,14 +1,16 @@
 
-/*
- esta clase es la estructura del nodo en el árbol AVL
- */
-public class Node<TYPE extends Comparable<? super TYPE>> {
-	// cada nodo tiene una altura, datos y un hijo izquierdo y derecho
-	private int height;
-	private Node<TYPE> left, right;
-	private TYPE value;
 
-	public Node(TYPE value) {
+//Esta clase es la estructura del nodo en el árbol AVL
+
+public class Node<T extends Comparable<? super T>> {
+	// Cada nodo tiene una altura, datos y un hijo izquierdo y derecho
+	//Atributos
+	private int height;
+	private Node<T> left, right;
+	private T value;
+	
+	//Getters y Setters  
+	public Node(T value) {
 		this.value = value;
 		height = 1;
 	}
@@ -21,27 +23,27 @@ public class Node<TYPE extends Comparable<? super TYPE>> {
 		this.height = height;
 	}
 
-	public Node<TYPE> getLeft() {
+	public Node<T> getLeft() {
 		return left;
 	}
 
-	public void setLeft(Node<TYPE> left) {
+	public void setLeft(Node<T> left) {
 		this.left = left;
 	}
 
-	public Node<TYPE> getRight() {
+	public Node<T> getRight() {
 		return right;
 	}
 
-	public void setRight(Node<TYPE> right) {
+	public void setRight(Node<T> right) {
 		this.right = right;
 	}
 
-	public TYPE getValue() {
+	public T getValue() {
 		return value;
 	}
 
-	public void setValue(TYPE value) {
+	public void setValue(T value) {
 		this.value = value;
 	}
 
