@@ -63,7 +63,7 @@ public class PlagiarismChecker {
 		for (int i = 0; i < trees.size(); i++) {
 			progress=((i+1)*100)/trees.size();//progreso del procesamiento por porcentaje
 			System.out.print("--> Comparando " + listDocuments.get(i) + "  -  ");
-			result.setResult(d.matching_count(trees.get(i)),listDocuments.get(i));
+			result.setResult(d.match(trees.get(i)),listDocuments.get(i));
 			System.out.println(progress+"% ");
 			respuesta= respuesta+progress+"% " ;		
 		}	

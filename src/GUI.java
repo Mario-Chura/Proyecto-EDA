@@ -18,9 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-public class GUI extends JFrame {
-
-    public final JTextField dirPath;
+public class GUI extends JFrame {   
     private JTextArea processArea;
     public final JButton checkButton;
     public final JButton selectButton;
@@ -28,22 +26,19 @@ public class GUI extends JFrame {
     public JPanel subPanel;
     public final JLabel dirLabel;
     public final JLabel processLabel;
-    public JScrollPane pane;
-    private JProgressBar pbar; 
+    public JScrollPane pane;    
     public final JButton selectButtonArchivo;
     private static ArrayList<String> bd;
     private static String file;
 
     public GUI() {
-        this.processLabel = new JLabel("Process : ");
-        this.dirLabel = new JLabel("Enter path of directory : ");
+        this.processLabel = new JLabel("Estado:");
+        this.dirLabel = new JLabel("Detector de Plagios ");
         this.selectButton = new JButton("Subir archivos a la BD");
-        this.dirPath = new JTextField();
         this.processArea = new JTextArea();
         this.checkButton = new JButton("Revisar");
         this.subPanel = new JPanel();
         this.contentPanel = new JPanel();
-        this.pbar = new JProgressBar(0,100);
         this.selectButtonArchivo = new JButton("Seleccionar archivo");
         bd= new ArrayList<String>();
         file ="";
@@ -63,14 +58,11 @@ public class GUI extends JFrame {
 
         dirLabel.setPreferredSize(new Dimension(100, 20));
         processLabel.setPreferredSize(new Dimension(150, 20));
-        dirPath.setPreferredSize(new Dimension(150, 5));
         processArea.setPreferredSize(new Dimension(0, 1000));
         processArea.setEditable(false);
         pane = new JScrollPane (processArea);
         pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        pbar.setPreferredSize(new Dimension(150, 5));
-        pbar.setStringPainted(true);
         
         subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
@@ -79,7 +71,6 @@ public class GUI extends JFrame {
 
         subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(dirPath);
         subPanel.add(Box.createRigidArea(new Dimension(5,0)));
         subPanel.add(selectButton);
         subPanel.add(selectButtonArchivo);
@@ -97,7 +88,6 @@ public class GUI extends JFrame {
         
         subPanel = new JPanel();
         subPanel.setLayout(new BoxLayout(subPanel, BoxLayout.LINE_AXIS));
-        subPanel.add(pbar);
         subPanel.add(Box.createRigidArea(new Dimension(5,0)));
         subPanel.add(checkButton);
         contentPanel.add(subPanel);      
