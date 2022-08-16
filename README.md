@@ -110,7 +110,7 @@
 
 <div align="center"><h2> REFERENCIAS Y BIBLIOGRAFÍA </h2></div> <br>
 
--   2
--   2
+-   Pérez, G. M. C.-. (2016). Definición de los árboles AVL. AVL Definición. Recuperado 2022, de http://163.10.22.82/OAS/AVL_Definicion/index.html
+-   Javaz, Z. (s. f.). Diseño e implementación de un árbol binario balanceado (árbol AVL) de algoritmo y estructura de datos Java - programador clic. Programmerclick. Recuperado 15 de agosto de 2022, de https://programmerclick.com/article/3400189243/
 -   3
 -   4
