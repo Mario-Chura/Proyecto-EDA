@@ -122,9 +122,7 @@ public class GUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String path = getDirectory();
-			if (path.isEmpty() && bd.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Please select Directory to proceed..");
-			} else if(bd.contains(path)){
+			if(bd.contains(path)){
 				JOptionPane.showMessageDialog(null, "Ya se ingreso ese texto");
 			} 
 			else {
@@ -150,7 +148,17 @@ public class GUI extends JFrame {
 
 	class Ejecutar implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) {          
+		public void actionPerformed(ActionEvent e) {      
+
+			if (file.equals("")) {
+				JOptionPane.showMessageDialog(null, "Seleccione el archivo a comparar");
+				return ;
+			}
+
+			if (bd.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Suba archivos a la base de datos");
+				return ;
+			}
 
 			String respuesta= "";
 			long startTime = System.currentTimeMillis();
