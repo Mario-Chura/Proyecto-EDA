@@ -76,7 +76,7 @@ public class Document{
 	/*
 	 *this method  read an avl tree and count the frequency of phrases in  the current document
 	 */
-	public boolean matching_count(AVLTree<String> tree){
+	public boolean match(AVLTree<String> tree){
 		Scanner input;
 		try{
 			input = new Scanner(new FileReader(this.getFileName()));
