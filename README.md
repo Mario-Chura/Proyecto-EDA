@@ -58,9 +58,19 @@
   
 <div align="center"><h2> SOLUCIÓN Y RESULTADOS </h2></div>
 
-### I.	SOLUCIÓN DE EJERCICIOS/PROBLEMAS
+### I.	METODOLOGÍA:
+
 #	
 1.  Este proyecto tiene por objetivo que los alumnos implementen un sistema de detección de plagio simple (sistema a ser implementado), en el cual, usando como referencia una base de datos, el usuario del sistema enviará un párrafo escrito por el mismo (o copiado de alguna fuente) y lo enviará al sistema, el cual se encarga de realizar las consultas sobre la base de datos a fin de determinar si existió plagio o no.
+- Estructura de datos: Como estructura de datos hemos escogido un árbol AVL por las siguientes características:
+
+ 	- La propiedad de balanceo garantiza que la altura del árbol sea de O(log n).
+		- En cada nodo del árbol se guarda información de la altura.
+		- La altura del árbol vacío es -1. 
+		- Al realizar operaciones de inserción o eliminación se debe actualizar la información de altura de los nodos y recuperar la propiedad de balanceo si fuera necesario, es decir, si hubiera sido destruida.
+		
+- Clases utilizadas:
+
 	- ***Class Node:*** Estructura del nodo del árbol AVL (Cada nodo contendrá un grupo de 10 palabras)	
 	- ***Class AVLTree:*** Implementación del arbol AVL (Se implementan métodos de inserción, balance, rotación a la derecha, rotación a la izquierda)
 	- ***Class Phrase:*** Esta clase almacena un grupo de 10 palabras en su atributo “Data”, luego estos grupos de 10 palabras mediante el método “addword” se usaran para ser insertados en el árbol AVL de la base de datos, también se usa el método “addword”para separar en grupos de 10 palabras el texto a ser comparado.
@@ -73,11 +83,6 @@
    
 #
 
-### II.	SOLUCIÓN DEL CUESTIONARIO
-
-
-#
-
 ### III.	CONCLUSIONES
 #
 -Conclusion 1 <br>
@@ -86,7 +91,7 @@
 -Conclusion 4 <br>
 -Conclusion 5 <br>
 #
-<div align="center"><h2>  RETROALIMENTACIÓN GENERAL </h2></div> <br>
+
 
 <div align="center"><h2> REFERENCIAS Y BIBLIOGRAFÍA </h2></div> <br>
 
