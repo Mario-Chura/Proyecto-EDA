@@ -102,8 +102,8 @@
 ### III.	CONCLUSIONES
 #
 -En el presente trabajo pudimos  conocer más sobre el árbol AVL, ya que la implementamos como estructura para el almacenamiento de la base de datos, siendo usado con frecuencia su operación de búsqueda el cual es de orden O(log n), la que nos permite encontrar coincidencias para verificar si el archivo de entrada tiene plagio o no. <br>
--Conclusion 2 <br>
--Conclusion 3 <br>
+-Tras el análisis, estudio e investigación acerca de los conceptos importantes a tener en cuenta, más la ayuda y consejos proporcionados por el docente, se pudo hallar la mejor manera para desarrollar y programar bien el sistema con mayor facilidad. <br>
+
 
 #
 
@@ -112,5 +112,4 @@
 
 -   Pérez, G. M. C.-. (2016). Definición de los árboles AVL. AVL Definición. Recuperado 2022, de http://163.10.22.82/OAS/AVL_Definicion/index.html
 -   Javaz, Z. (s. f.). Diseño e implementación de un árbol binario balanceado (árbol AVL) de algoritmo y estructura de datos Java - programador clic. Programmerclick. Recuperado 15 de agosto de 2022, de https://programmerclick.com/article/3400189243/
--   3
--   4
+
