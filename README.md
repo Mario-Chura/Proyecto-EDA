@@ -85,11 +85,10 @@
 
 ### III.	CONCLUSIONES
 #
--Conclusion 1 <br>
+-En el presente trabajo pudimos  conocer más sobre el árbol AVL, ya que la implementamos como estructura para el almacenamiento de la base de datos, siendo usado con frecuencia su operación de búsqueda el cual es de orden O(log n), la que nos permite encontrar coincidencias para verificar si el archivo de entrada tiene plagio o no. <br>
 -Conclusion 2 <br>
 -Conclusion 3 <br>
--Conclusion 4 <br>
--Conclusion 5 <br>
+
 #
 
 
